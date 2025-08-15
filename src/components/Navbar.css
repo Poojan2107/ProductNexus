@@ -41,9 +41,10 @@
 }
 
 .navlinks a { 
-  color: var(--text-secondary);
+  color: var(--text-primary) !important;
   padding: 0.5rem 1rem;
   border-radius: 8px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
   font-family: var(--font-mono);
   font-weight: 600;
   text-transform: uppercase;
@@ -51,6 +52,8 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
 .navlinks a::before {
@@ -77,10 +80,11 @@
 }
 
 .navlinks a.active { 
-  color: var(--accent-primary);
-  background: rgba(0, 255, 0, 0.1);
-  border: 1px solid var(--accent-primary);
-  box-shadow: 0 0 15px rgba(0, 255, 0, 0.3);
+  color: var(--accent-primary) !important;
+  background: rgba(255, 255, 255, 0.15);
+  border: 2px solid var(--accent-primary);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 10px var(--accent-primary);
 }
 
 .authbox { 
@@ -129,4 +133,20 @@
   100% { transform: translate(0) scale(1.05); }
 }
 
+/* Fallback styling to ensure text is always visible */
+.navlinks a,
+.navlinks a:link,
+.navlinks a:visited {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
 
+.navlinks a:hover {
+  color: #000000 !important;
+  text-shadow: none !important;
+}
+
+.navlinks a.active {
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
