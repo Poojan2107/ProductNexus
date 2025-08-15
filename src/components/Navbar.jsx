@@ -18,8 +18,46 @@ export default function Navbar() {
         <nav className="navlinks">
           {user && (
             <>
-              <NavLink to="/products" className={({isActive}) => isActive ? 'active' : ''}>PRODUCTS</NavLink>
-              <NavLink to="/products/add" className={({isActive}) => isActive ? 'active' : ''}>ADD_PRODUCT</NavLink>
+              <NavLink 
+                to="/products" 
+                className={({isActive}) => isActive ? 'active' : ''}
+                style={{
+                  color: '#ffffff !important',
+                  border: '2px solid #ffffff',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  padding: '0.75rem 1.25rem',
+                  borderRadius: '8px',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: '700',
+                  minWidth: '120px',
+                  textAlign: 'center'
+                }}
+              >
+                PRODUCTS
+              </NavLink>
+              <NavLink 
+                to="/products/add" 
+                className={({isActive}) => isActive ? 'active' : ''}
+                style={{
+                  color: '#ffffff !important',
+                  border: '2px solid #ffffff',
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  padding: '0.75rem 1.25rem',
+                  borderRadius: '8px',
+                  textDecoration: 'none',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontWeight: '700',
+                  minWidth: '120px',
+                  textAlign: 'center'
+                }}
+              >
+                ADD_PRODUCT
+              </NavLink>
             </>
           )}
         </nav>
