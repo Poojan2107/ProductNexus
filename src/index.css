@@ -381,3 +381,40 @@ main {
   0% { transform: translateY(0); }
   100% { transform: translateY(100%); }
 }
+
+/* CRITICAL: Global override to ensure navbar links are ALWAYS visible */
+header.navbar .navlinks a,
+header .navlinks a,
+.navbar .navlinks a,
+.navlinks a {
+  color: #ffffff !important;
+  border: 2px solid #ffffff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.75rem 1.25rem !important;
+  font-weight: 700 !important;
+  min-width: 120px !important;
+  text-align: center !important;
+}
+
+header.navbar .navlinks a:hover,
+header .navlinks a:hover,
+.navbar .navlinks a:hover,
+.navlinks a:hover {
+  color: #000000 !important;
+  background: #ffffff !important;
+  text-shadow: none !important;
+}
+
+header.navbar .navlinks a.active,
+header .navlinks a.active,
+.navbar .navlinks a.active,
+.navlinks a.active {
+  color: #000000 !important;
+  background: #ffffff !important;
+}
