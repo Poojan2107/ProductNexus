@@ -70,66 +70,6 @@ src/
 └── styles/             # CSS styling files
 ```
 
-## 💻 Installation & Setup
-
-### Prerequisites
-- Node.js (v16 or higher)
-- npm or yarn
-- Firebase project with Authentication and Realtime Database enabled
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/Poojan2107/Product-app-react.git
-cd Product-app-react
-```
-
-### 2. Install Dependencies
-```bash
-npm install
-```
-
-### 3. Firebase Configuration
-1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
-2. Enable Authentication and Realtime Database
-3. Update `src/firebase.js` with your Firebase config
-
-### 4. Development Server
-```bash
-npm run dev
-```
-
-### 5. Build for Production
-```bash
-npm run build
-```
-
-### 6. Deploy to GitHub Pages
-```bash
-npm run deploy
-```
-
-## 🔧 Configuration
-
-### Firebase Setup
-1. **Authentication**: Enable Email/Password authentication
-2. **Realtime Database**: Set up with appropriate security rules
-3. **Authorized Domains**: Add your GitHub Pages domain
-
-### Environment Variables
-Update `src/firebase.js` with your Firebase configuration:
-
-```javascript
-const firebaseConfig = {
-  apiKey: "your-api-key",
-  authDomain: "your-project.firebaseapp.com",
-  databaseURL: "https://your-project-rtdb.firebaseio.com/",
-  projectId: "your-project-id",
-  storageBucket: "your-project.firebasestorage.app",
-  messagingSenderId: "your-sender-id",
-  appId: "your-app-id"
-}
-```
-
 ## 🎨 Design Philosophy
 
 Product Nexus embraces a **terminal-inspired aesthetic** with:
@@ -138,20 +78,6 @@ Product Nexus embraces a **terminal-inspired aesthetic** with:
 - 🎯 **Minimalist UI**: Clean, focused interface without clutter
 - 🌈 **Smooth Animations**: Subtle transitions and hover effects
 - 📐 **Grid Layouts**: Organized, responsive card-based design
-
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the project
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
 
 ## 👨‍💻 Developer
 
@@ -162,10 +88,6 @@ This project is open source and available under the [MIT License](LICENSE).
 ### 🔗 Links
 - **Live Demo**: https://poojan2107.github.io/Product-app-react
 - **Repository**: https://github.com/Poojan2107/Product-app-react
-- **Firebase**: https://firebase.google.com/
-- **React**: https://reactjs.org/
-- **Vite**: https://vitejs.dev/
-
 ---
 
 *Built with ❤️ using React, Firebase, and modern web technologies.*
