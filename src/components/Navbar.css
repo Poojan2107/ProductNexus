@@ -70,8 +70,10 @@
 }
 
 .navlinks a:hover {
-  color: var(--bg-primary);
+  color: var(--bg-primary) !important;
   transform: translateY(-2px);
+  z-index: 1;
+  position: relative;
 }
 
 .navlinks a.active { 

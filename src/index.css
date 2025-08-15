@@ -186,7 +186,7 @@ main {
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
   border-radius: 8px;
-  border: 2px solid transparent;
+  border: 2px solid var(--border-secondary);
   background: var(--bg-tertiary);
   color: var(--text-primary);
   font-family: var(--font-mono);
@@ -208,7 +208,7 @@ main {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.1) 100%);
   transition: left 0.3s ease;
   z-index: -1;
 }
@@ -219,9 +219,10 @@ main {
 
 .btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1), var(--shadow-secondary);
-  border-color: var(--border-secondary);
-  color: var(--text-primary);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2), var(--shadow-secondary);
+  border-color: var(--accent-primary);
+  color: var(--text-primary) !important;
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
 
 .btn:active {
@@ -237,6 +238,8 @@ main {
 .btn.accent:hover {
   background: var(--accent-secondary);
   border-color: var(--accent-secondary);
+  color: var(--bg-primary) !important;
+  text-shadow: none;
 }
 
 .btn.muted { 
@@ -247,7 +250,8 @@ main {
 
 .btn.muted:hover {
   border-color: var(--accent-primary);
-  color: var(--text-primary);
+  color: var(--text-primary) !important;
+  background: var(--bg-tertiary);
 }
 
 .btn.danger { 
