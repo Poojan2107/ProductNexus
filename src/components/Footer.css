@@ -1,23 +1,12 @@
-.footer {
+/* Clean Footer Styles - No pseudo content */
+.clean-footer {
   margin-top: 3rem;
   border-top: 2px solid var(--border-primary);
   background: var(--bg-secondary);
   position: relative;
-  overflow: hidden;
 }
 
-.footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--gradient-accent);
-  opacity: 0.5;
-}
-
-.footer__inner {
+.clean-footer__content {
   max-width: 1400px;
   margin: 0 auto;
   padding: 2rem 1.5rem;
@@ -27,18 +16,16 @@
   font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 2px;
-  position: relative;
-  z-index: 1;
   display: grid;
   gap: 1.5rem;
 }
 
-.footer__brand {
+.clean-footer__brand {
   border-bottom: 1px solid var(--border-primary);
   padding-bottom: 1rem;
 }
 
-.footer__title {
+.clean-footer__title {
   margin: 0 0 0.5rem 0;
   font-size: 1.5rem;
   font-weight: 900;
@@ -48,7 +35,7 @@
   animation: pulse 3s ease-in-out infinite;
 }
 
-.footer__tagline {
+.clean-footer__tagline {
   margin: 0;
   font-size: 0.8rem;
   color: var(--text-secondary);
@@ -57,91 +44,26 @@
   font-style: italic;
 }
 
-.footer__meta {
-  display: grid;
-  gap: 0.5rem;
+.clean-footer__credit {
   font-size: 0.75rem;
   opacity: 0.7;
 }
 
-
-/* Matrix-style background effect */
-.footer.matrix {
-  position: relative;
-}
-
-.footer.matrix::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-    linear-gradient(90deg, transparent 0%, var(--accent-glow) 50%, transparent 100%),
-    repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      var(--accent-glow) 2px,
-      var(--accent-glow) 4px
-    );
-  opacity: 0.03;
-  animation: matrix 25s linear infinite;
-  pointer-events: none;
-}
-
-/* Terminal-style footer variant */
-.footer.terminal {
-  background: var(--bg-primary);
-  border-top-color: var(--accent-primary);
-}
-
-.footer.terminal .footer__inner {
-  color: var(--accent-primary);
-}
-
-.footer.terminal .footer__inner::after {
-  color: var(--text-primary);
+.clean-footer__credit p {
+  margin: 0;
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .footer {
+  .clean-footer {
     margin-top: 2rem;
   }
   
-  .footer__inner {
+  .clean-footer__content {
     padding: 1.5rem 1rem;
     font-size: 0.8rem;
     letter-spacing: 1px;
   }
-}
-
-/* Footer animations */
-.footer {
-  animation: slideIn 0.8s ease-out;
-}
-
-.footer__inner {
-  animation: slideIn 1s ease-out;
-}
-
-/* Techy footer effects */
-.footer::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--accent-primary);
-  transform: scaleX(0);
-  transition: transform 0.5s ease;
-}
-
-.footer:hover::after {
-  transform: scaleX(1);
 }
 
 
