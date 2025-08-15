@@ -69,5 +69,3 @@ export async function deleteProduct(id) {
     throw new Error('Failed to delete product')
   }
 }
-
-
