@@ -14,7 +14,6 @@ export default function ProductList() {
       setLoading(true)
       let data = await fetchProducts()
       
-      // If no products exist, initialize with sample data
       if (data.length === 0) {
         try {
           await initializeDatabase()

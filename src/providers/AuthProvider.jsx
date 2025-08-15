@@ -62,7 +62,4 @@ export function AuthProvider({ children }) {
   )
 }
 
-// Export the context for use in other files
 export { AuthContext }
-
-

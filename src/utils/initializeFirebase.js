@@ -1,7 +1,6 @@
 import { database } from '../firebase.js'
 import { ref, set } from 'firebase/database'
 
-// Initial products data from db.json
 const initialProducts = {
   "1": {
     "name": "Wireless Headphones",
