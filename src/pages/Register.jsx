@@ -40,7 +40,7 @@ export default function Register() {
       <form onSubmit={handleSubmit} className="form">
         <label>
           <span>USERNAME</span>
-          <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="Jane Doe" />
+          <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="Enter your name" />
         </label>
         <label>
           <span>EMAIL_ADDRESS</span>
