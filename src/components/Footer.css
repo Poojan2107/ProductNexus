@@ -64,15 +64,6 @@
   opacity: 0.7;
 }
 
-.footer__inner::after {
-  content: '// END OF LINE';
-  display: block;
-  margin-top: 1rem;
-  color: var(--accent-primary);
-  font-size: 0.8rem;
-  opacity: 0.7;
-  animation: pulse 2s ease-in-out infinite;
-}
 
 /* Matrix-style background effect */
 .footer.matrix {
