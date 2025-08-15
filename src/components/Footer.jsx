@@ -10,7 +10,7 @@ export default function Footer() {
         </div>
         <div className="footer__meta">
           <p>© {new Date().getFullYear()} • BUILT WITH REACT & FIREBASE</p>
-          <p>VERSION 3.0.0 • QUANTUM READY</p>
+          <p>Product Management App Built By Poojan Shrivastav.</p>
         </div>
       </div>
     </footer>
