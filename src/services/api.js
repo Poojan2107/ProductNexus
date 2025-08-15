@@ -1,62 +1,73 @@
-const API_BASE = 'http://localhost:5000'
+import { database } from '../firebase.js'
+import { ref, get, set, push, remove, update } from 'firebase/database'
 
-// Helper function to handle fetch errors
-const handleFetchError = async (response, defaultMessage) => {
-  if (!response.ok) {
-    let errorMessage = defaultMessage
-    try {
-      const errorData = await response.json()
-      errorMessage = errorData.message || errorMessage
-    } catch {
-      // If we can't parse the error response, use the default message
-    }
-    throw new Error(errorMessage)
-  }
-}
+// Helper function to generate unique IDs
+const generateId = () => Math.random().toString(36).substr(2, 9)
 
 export async function fetchProducts() {
   try {
-    const res = await fetch(`${API_BASE}/products`)
-    await handleFetchError(res, 'FAILED TO LOAD PRODUCTS - CHECK SERVER CONNECTION')
-    return res.json()
-  } catch (error) {
-    if (error.name === 'TypeError' && error.message.includes('fetch')) {
-      throw new Error('SERVER_UNAVAILABLE - START JSON-SERVER ON PORT 5000')
+    const productsRef = ref(database, 'products')
+    const snapshot = await get(productsRef)
+    
+    if (snapshot.exists()) {
+      const data = snapshot.val()
+      // Convert object to array format expected by the frontend
+      return Object.keys(data).map(key => ({
+        id: key,
+        ...data[key]
+      }))
+    } else {
+      return []
     }
-    throw error
+  } catch (error) {
+    throw new Error('FAILED TO LOAD PRODUCTS - CHECK INTERNET CONNECTION')
   }
 }
 
 export async function fetchProduct(id) {
-  const res = await fetch(`${API_BASE}/products/${id}`)
-  if (!res.ok) throw new Error('Failed to fetch product')
-  return res.json()
+  try {
+    const productRef = ref(database, `products/${id}`)
+    const snapshot = await get(productRef)
+    
+    if (snapshot.exists()) {
+      return { id, ...snapshot.val() }
+    } else {
+      throw new Error('Product not found')
+    }
+  } catch (error) {
+    throw new Error('Failed to fetch product')
+  }
 }
 
 export async function createProduct(product) {
-  const res = await fetch(`${API_BASE}/products`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(product),
-  })
-  if (!res.ok) throw new Error('Failed to create product')
-  return res.json()
+  try {
+    const id = generateId()
+    const productRef = ref(database, `products/${id}`)
+    await set(productRef, product)
+    return { id, ...product }
+  } catch (error) {
+    throw new Error('Failed to create product')
+  }
 }
 
 export async function updateProduct(id, product) {
-  const res = await fetch(`${API_BASE}/products/${id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(product),
-  })
-  if (!res.ok) throw new Error('Failed to update product')
-  return res.json()
+  try {
+    const productRef = ref(database, `products/${id}`)
+    await update(productRef, product)
+    return { id, ...product }
+  } catch (error) {
+    throw new Error('Failed to update product')
+  }
 }
 
 export async function deleteProduct(id) {
-  const res = await fetch(`${API_BASE}/products/${id}`, { method: 'DELETE' })
-  if (!res.ok) throw new Error('Failed to delete product')
-  return true
+  try {
+    const productRef = ref(database, `products/${id}`)
+    await remove(productRef)
+    return true
+  } catch (error) {
+    throw new Error('Failed to delete product')
+  }
 }
 
 

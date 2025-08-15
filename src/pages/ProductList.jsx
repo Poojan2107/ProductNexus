@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { deleteProduct, fetchProducts } from '../services/api'
+import { initializeDatabase } from '../utils/initializeFirebase'
 import '../components/Card.css'
 
 export default function ProductList() {
@@ -11,7 +12,18 @@ export default function ProductList() {
   const load = async () => {
     try {
       setLoading(true)
-      const data = await fetchProducts()
+      let data = await fetchProducts()
+      
+      // If no products exist, initialize with sample data
+      if (data.length === 0) {
+        try {
+          await initializeDatabase()
+          data = await fetchProducts()
+        } catch (initError) {
+          console.error('Failed to initialize database:', initError)
+        }
+      }
+      
       setProducts(data)
     } catch (err) {
       setError(err.message)
