@@ -9,7 +9,6 @@ export default function Footer() {
           <p className="footer__tagline">WHERE PRODUCTS MEET PERFECTION</p>
         </div>
         <div className="footer__meta">
-          <p>© {new Date().getFullYear()} • BUILT WITH REACT & FIREBASE</p>
           <p>Product Management App Built By Poojan Shrivastav.</p>
         </div>
       </div>
