@@ -137,20 +137,21 @@
   100% { transform: translate(0) scale(1.05); }
 }
 
-/* Fallback styling to ensure text is always visible */
-.navlinks a,
-.navlinks a:link,
-.navlinks a:visited {
-  color: #ffffff !important;
-  opacity: 1 !important;
-}
-
-.navlinks a:hover {
+/* New navbar button styling with proper states */
+.nav-inactive:hover {
+  background: #ffffff !important;
   color: #000000 !important;
-  text-shadow: none !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
 }
 
-.navlinks a.active {
-  color: #ffffff !important;
+.nav-active:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+}
+
+/* Ensure all navbar links are visible */
+.navlinks a {
   opacity: 1 !important;
+  visibility: visible !important;
 }

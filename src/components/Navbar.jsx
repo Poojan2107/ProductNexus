@@ -20,11 +20,11 @@ export default function Navbar() {
             <>
               <NavLink 
                 to="/products" 
-                className={({isActive}) => isActive ? 'active' : ''}
-                style={{
-                  color: '#ffffff !important',
+                className={({isActive}) => isActive ? 'nav-active' : 'nav-inactive'}
+                style={({isActive}) => ({
+                  color: isActive ? '#000000' : '#ffffff',
                   border: '2px solid #ffffff',
-                  background: 'rgba(255, 255, 255, 0.1)',
+                  background: isActive ? '#ffffff' : 'transparent',
                   padding: '0.75rem 1.25rem',
                   borderRadius: '8px',
                   textDecoration: 'none',
@@ -33,18 +33,23 @@ export default function Navbar() {
                   justifyContent: 'center',
                   fontWeight: '700',
                   minWidth: '120px',
-                  textAlign: 'center'
-                }}
+                  textAlign: 'center',
+                  transition: 'all 0.3s ease',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.9rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px'
+                })}
               >
                 PRODUCTS
               </NavLink>
               <NavLink 
                 to="/products/add" 
-                className={({isActive}) => isActive ? 'active' : ''}
-                style={{
-                  color: '#ffffff !important',
+                className={({isActive}) => isActive ? 'nav-active' : 'nav-inactive'}
+                style={({isActive}) => ({
+                  color: isActive ? '#000000' : '#ffffff',
                   border: '2px solid #ffffff',
-                  background: 'rgba(255, 255, 255, 0.1)',
+                  background: isActive ? '#ffffff' : 'transparent',
                   padding: '0.75rem 1.25rem',
                   borderRadius: '8px',
                   textDecoration: 'none',
@@ -53,8 +58,13 @@ export default function Navbar() {
                   justifyContent: 'center',
                   fontWeight: '700',
                   minWidth: '120px',
-                  textAlign: 'center'
-                }}
+                  textAlign: 'center',
+                  transition: 'all 0.3s ease',
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: '0.9rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px'
+                })}
               >
                 ADD_PRODUCT
               </NavLink>
