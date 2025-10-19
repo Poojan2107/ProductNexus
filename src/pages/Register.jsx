@@ -1,37 +1,37 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../hooks/useAuth'
-import './Form.css'
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import "./Form.css";
 
 export default function Register() {
-  const { registerWithEmail } = useAuth()
-  const navigate = useNavigate()
-  const [form, setForm] = useState({ name: '', email: '', password: '' })
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
+  const { registerWithEmail } = useAuth();
+  const navigate = useNavigate();
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target
-    setForm((f) => ({ ...f, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setForm((f) => ({ ...f, [name]: value }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setError('')
+    e.preventDefault();
+    setError("");
     if (!form.name || !form.email || !form.password) {
-      setError('ALL_FIELDS_REQUIRED')
-      return
+      setError("ALL_FIELDS_REQUIRED");
+      return;
     }
     try {
-      setLoading(true)
-      await registerWithEmail(form.name, form.email, form.password)
-      navigate('/')
+      setLoading(true);
+      await registerWithEmail(form.name, form.email, form.password);
+      navigate("/");
     } catch (err) {
-      setError(err.message)
+      setError(err.message);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div className="form-card matrix">
@@ -40,23 +40,41 @@ export default function Register() {
       <form onSubmit={handleSubmit} className="form">
         <label>
           <span>USERNAME</span>
-          <input type="text" name="name" value={form.name} onChange={handleChange} placeholder="Enter your name" />
+          <input
+            type="text"
+            name="name"
+            value={form.name}
+            onChange={handleChange}
+            placeholder="Enter your name"
+          />
         </label>
         <label>
           <span>EMAIL_ADDRESS</span>
-          <input type="email" name="email" value={form.email} onChange={handleChange} placeholder="user@example.com" />
+          <input
+            type="email"
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="user@example.com"
+          />
         </label>
         <label>
           <span>PASSWORD</span>
-          <input type="password" name="password" value={form.password} onChange={handleChange} placeholder="••••••••" />
+          <input
+            type="password"
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+            placeholder="••••••••"
+          />
         </label>
         <button className="btn accent" disabled={loading} type="submit">
-          {loading ? 'CREATING_ACCOUNT...' : 'CREATE_ACCOUNT'}
+          {loading ? "CREATING_ACCOUNT..." : "CREATE_ACCOUNT"}
         </button>
       </form>
       <p className="form-foot">
         ACCOUNT_EXISTS? <Link to="/login">LOGIN_HERE</Link>
       </p>
     </div>
-  )
+  );
 }

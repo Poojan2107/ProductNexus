@@ -31,6 +31,7 @@ A modern, terminal-inspired product management application built with React and 
 ## 📋 Product Features
 
 ### Product Management
+
 - ➕ **Add Products**: Create new products with name, price, category, subcategory, and description
 - 👁️ **View Products**: Browse all products in a responsive card grid layout
 - ✏️ **Edit Products**: Update existing product information
@@ -38,6 +39,7 @@ A modern, terminal-inspired product management application built with React and 
 - 🔍 **Product Details**: View detailed product information
 
 ### User Experience
+
 - 🔑 **Secure Authentication**: Register new accounts or login to existing ones
 - 🛡️ **Protected Routes**: Only authenticated users can access product management
 - ⚡ **Real-time Updates**: Changes sync across all connected clients instantly
@@ -73,6 +75,7 @@ src/
 ## 🎨 Design Philosophy
 
 Product Nexus embraces a **terminal-inspired aesthetic** with:
+
 - 🖤 **Dark Theme**: Easy on the eyes with high contrast
 - ⚡ **Techy Vibes**: Monospace fonts and terminal-like elements
 - 🎯 **Minimalist UI**: Clean, focused interface without clutter
@@ -86,8 +89,10 @@ Product Nexus embraces a **terminal-inspired aesthetic** with:
 ---
 
 ### 🔗 Links
+
 - **Live Demo**: https://poojan2107.github.io/Product-app-react
 - **Repository**: https://github.com/Poojan2107/Product-app-react
+
 ---
 
-*Built with ❤️ using React, Firebase, and modern web technologies.*
+_Built with ❤️ using React, Firebase, and modern web technologies._

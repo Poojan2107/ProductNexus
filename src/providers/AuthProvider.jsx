@@ -1,65 +1,43 @@
-import { createContext, useEffect, useMemo, useState } from 'react'
-import {
-  getAuth,
-  onAuthStateChanged,
-  signOut,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  updateProfile,
-} from 'firebase/auth'
-import '../firebase'
+import { createContext, useEffect, useState } from "react";
+import * as localAuth from "../services/localAuth";
 
-const AuthContext = createContext(null)
+const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const auth = useMemo(() => getAuth(), [])
-  const [user, setUser] = useState(null)
-  const [initializing, setInitializing] = useState(true)
+  const [user, setUser] = useState(null);
+  const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
-    const unsub = onAuthStateChanged(auth, (firebaseUser) => {
-      setUser(firebaseUser)
-      setInitializing(false)
-    })
-    return () => unsub()
-  }, [auth])
-
-  const loginWithGoogle = async () => {
-    const provider = new GoogleAuthProvider()
-    await signInWithPopup(auth, provider)
-  }
+    const unsub = localAuth.onAuthStateChanged((u) => {
+      setUser(u);
+      if (u) console.log("AuthProvider (local): user signed in", u);
+      else console.log("AuthProvider (local): no user signed in");
+      setInitializing(false);
+    });
+    return () => unsub();
+  }, []);
 
   const loginWithEmail = async (email, password) => {
-    await signInWithEmailAndPassword(auth, email, password)
-  }
+    return localAuth.loginWithEmail(email, password);
+  };
 
   const registerWithEmail = async (name, email, password) => {
-    const cred = await createUserWithEmailAndPassword(auth, email, password)
-    if (cred.user && name) {
-      await updateProfile(cred.user, { displayName: name })
-    }
-  }
+    return localAuth.registerWithEmail(name, email, password);
+  };
 
   const logout = async () => {
-    await signOut(auth)
-  }
+    return localAuth.logout();
+  };
 
   const value = {
     user,
     initializing,
-    loginWithGoogle,
     loginWithEmail,
     registerWithEmail,
     logout,
-  }
+  };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  )
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
-export { AuthContext }
+export { AuthContext };
