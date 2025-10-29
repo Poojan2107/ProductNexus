@@ -32,8 +32,13 @@ export default function ViewProduct() {
       <div className="grid">
         <div className="col-6">
           <div className="container">
+            {product.image && (
+              <div style={{ marginBottom: "1rem" }}>
+                <img src={product.image} alt={product.name} style={{ maxWidth: "100%", maxHeight: "300px" }} />
+              </div>
+            )}
             <p>
-              <strong>Price:</strong> ${Number(product.price).toFixed(2)}
+              <strong>Price:</strong> ₹{Number(product.price).toFixed(2)}
             </p>
             <p>
               <strong>Category:</strong> {product.category} /{" "}
@@ -48,7 +53,7 @@ export default function ViewProduct() {
       </div>
       <div className="spacer" />
       <div className="actions">
-        <Link className="btn" to={`/products/${product.id}/edit`}>
+        <Link className="btn" to={`/products/${product._id}/edit`}>
           Edit
         </Link>
         <Link className="btn muted" to="/products">

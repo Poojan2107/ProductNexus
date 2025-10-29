@@ -97,7 +97,6 @@ img {
 /* Main content */
 main {
   padding: 1rem;
-  min-height: calc(100vh - 140px);
 }
 
 /* Loading animation */
@@ -159,9 +158,9 @@ main {
 
 /* App-specific styles */
 #root {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 1rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   background: var(--bg-primary);
 }
 

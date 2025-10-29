@@ -1,23 +1,35 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createProduct } from "../services/api";
+import { useNotification } from "../contexts/NotificationContext";
 import "./Form.css";
 
 export default function AddProduct() {
   const navigate = useNavigate();
+  const { addNotification } = useNotification();
   const [form, setForm] = useState({
     name: "",
     price: "",
     category: "",
     subcategory: "",
     description: "",
+    image: null,
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((f) => ({ ...f, [name]: value }));
+    const { name, value, type, files } = e.target;
+    if (type === "file" && files.length > 0) {
+      const file = files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        setForm((f) => ({ ...f, [name]: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setForm((f) => ({ ...f, [name]: value }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -41,9 +53,9 @@ export default function AddProduct() {
     try {
       setLoading(true);
       await createProduct({ ...form, price });
+      addNotification("PRODUCT_ADDED_SUCCESSFULLY", "success");
       navigate("/products");
     } catch (err) {
-      // Show friendlier message for auth errors
       if (err && err.message && err.message.includes("AUTH_REQUIRED")) {
         setError("AUTH_REQUIRED: Please login before adding products");
       } else {
@@ -110,6 +122,15 @@ export default function AddProduct() {
             value={form.description}
             onChange={handleChange}
             placeholder="Enter product description..."
+          />
+        </label>
+        <label>
+          <span>PRODUCT_IMAGE</span>
+          <input
+            type="file"
+            name="image"
+            accept="image/*"
+            onChange={handleChange}
           />
         </label>
         <button className="btn accent" disabled={loading} type="submit">

@@ -1,95 +1,96 @@
-// Local product storage implementation using localStorage
+const API_BASE_URL = 'http://localhost:5000/api';
 
-// Local product storage implementation using localStorage
-const LS_KEY = "product_app_products";
+async function apiRequest(endpoint, options = {}) {
+  const token = localStorage.getItem('token');
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+    ...options,
+  };
 
-function loadStore() {
-  try {
-    const raw = localStorage.getItem(LS_KEY);
-    return raw ? JSON.parse(raw) : {};
-  } catch (e) {
-    return {};
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ message: 'Network error' }));
+    throw new Error(error.message || `HTTP error! status: ${response.status}`);
   }
-}
 
-function saveStore(obj) {
-  try {
-    localStorage.setItem(LS_KEY, JSON.stringify(obj));
-  } catch (e) {
-    console.error("api: failed to save store", e);
-  }
-}
-
-function generateId() {
-  return Math.random().toString(36).slice(2, 10);
+  return response.json();
 }
 
 export async function fetchProducts() {
-  try {
-    const store = loadStore();
-    return Object.keys(store).map((k) => ({ id: k, ...store[k] }));
-  } catch (e) {
-    console.error("fetchProducts error:", e);
-    throw new Error(
-      "FAILED TO LOAD PRODUCTS: " + (e && e.message ? e.message : e),
-    );
-  }
+  return apiRequest('/products');
 }
 
 export async function fetchProduct(id) {
-  try {
-    const store = loadStore();
-    if (store[id]) return { id, ...store[id] };
-    throw new Error("Product not found");
-  } catch (e) {
-    console.error("fetchProduct error:", e);
-    throw new Error(
-      "Failed to fetch product: " + (e && e.message ? e.message : e),
-    );
-  }
+  return apiRequest(`/products/${id}`);
 }
 
 export async function createProduct(product) {
-  try {
-    const store = loadStore();
-    const id = generateId();
-    store[id] = product;
-    saveStore(store);
-    return { id, ...product };
-  } catch (e) {
-    console.error("createProduct error:", e);
-    throw new Error(
-      "Failed to create product: " + (e && e.message ? e.message : e),
-    );
-  }
+  return apiRequest('/products', {
+    method: 'POST',
+    body: JSON.stringify(product),
+  });
 }
 
 export async function updateProduct(id, product) {
-  try {
-    const store = loadStore();
-    if (!store[id]) throw new Error("Product not found");
-    store[id] = { ...store[id], ...product };
-    saveStore(store);
-    return { id, ...store[id] };
-  } catch (e) {
-    console.error("updateProduct error:", e);
-    throw new Error(
-      "Failed to update product: " + (e && e.message ? e.message : e),
-    );
-  }
+  return apiRequest(`/products/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(product),
+  });
 }
 
 export async function deleteProduct(id) {
-  try {
-    const store = loadStore();
-    if (!store[id]) throw new Error("Product not found");
-    delete store[id];
-    saveStore(store);
-    return true;
-  } catch (e) {
-    console.error("deleteProduct error:", e);
-    throw new Error(
-      "Failed to delete product: " + (e && e.message ? e.message : e),
-    );
+  return apiRequest(`/products/${id}`, {
+    method: 'DELETE',
+  });
+}
+
+export async function loginUser(credentials) {
+  const response = await fetch(`${API_BASE_URL}/auth/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(credentials),
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ message: 'Network error' }));
+    throw new Error(error.message || `HTTP error! status: ${response.status}`);
   }
+
+  return response.json();
+}
+
+export async function registerUser(userData) {
+  const response = await fetch(`${API_BASE_URL}/auth/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData),
+  });
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ message: 'Network error' }));
+    throw new Error(error.message || `HTTP error! status: ${response.status}`);
+  }
+
+  return response.json();
+}
+
+export async function logoutUser() {
+  return apiRequest('/auth/logout', {
+    method: 'POST',
+  });
+}
+
+export async function updateUserProfile(userId, userData) {
+  return apiRequest(`/auth/profile/${userId}`, {
+    method: 'PUT',
+    body: JSON.stringify(userData),
+  });
 }

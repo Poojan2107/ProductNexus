@@ -12,6 +12,7 @@ export default function EditProduct() {
     category: "",
     subcategory: "",
     description: "",
+    image: null,
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -26,6 +27,7 @@ export default function EditProduct() {
           category: data.category || "",
           subcategory: data.subcategory || "",
           description: data.description || "",
+          image: data.image || null,
         });
       } catch (err) {
         setError(err.message);
@@ -37,8 +39,17 @@ export default function EditProduct() {
   }, [id]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm((f) => ({ ...f, [name]: value }));
+    const { name, value, type, files } = e.target;
+    if (type === "file" && files.length > 0) {
+      const file = files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        setForm((f) => ({ ...f, [name]: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setForm((f) => ({ ...f, [name]: value }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -61,7 +72,7 @@ export default function EditProduct() {
     }
     try {
       await updateProduct(id, { ...form, price });
-      navigate(`/products/${id}`);
+      navigate(`/products/${id}/view`);
     } catch (err) {
       setError(err.message);
     }
@@ -126,6 +137,20 @@ export default function EditProduct() {
             onChange={handleChange}
             placeholder="Enter product description..."
           />
+        </label>
+        <label>
+          <span>PRODUCT_IMAGE</span>
+          <input
+            type="file"
+            name="image"
+            accept="image/*"
+            onChange={handleChange}
+          />
+          {form.image && (
+            <div style={{ marginTop: "0.5rem" }}>
+              <img src={form.image} alt="Current product image" style={{ maxWidth: "200px", maxHeight: "200px" }} />
+            </div>
+          )}
         </label>
         <button className="btn accent" type="submit">
           UPDATE_PRODUCT

@@ -1,32 +1,70 @@
 import { createContext, useEffect, useState } from "react";
-import * as localAuth from "../services/localAuth";
 
 const AuthContext = createContext(null);
+
+const API_BASE_URL = 'http://localhost:5000/api';
+
+async function apiRequest(endpoint, options = {}) {
+  const token = localStorage.getItem('token');
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+    ...options,
+  };
+
+  const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
+
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ message: 'Network error' }));
+    throw new Error(error.message || `HTTP error! status: ${response.status}`);
+  }
+
+  return response.json();
+}
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
-    const unsub = localAuth.onAuthStateChanged((u) => {
-      setUser(u);
-      if (u) console.log("AuthProvider (local): user signed in", u);
-      else console.log("AuthProvider (local): no user signed in");
-      setInitializing(false);
-    });
-    return () => unsub();
+    const token = localStorage.getItem('token');
+    if (token) {
+      // Verify token and set user
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        setUser(payload.user);
+      } catch {
+        localStorage.removeItem('token');
+      }
+    }
+    setInitializing(false);
   }, []);
 
   const loginWithEmail = async (email, password) => {
-    return localAuth.loginWithEmail(email, password);
+    const response = await apiRequest('/auth/login', {
+      method: 'POST',
+      body: JSON.stringify({ email, password }),
+    });
+    localStorage.setItem('token', response.token);
+    setUser(response.user);
+    return response.user;
   };
 
   const registerWithEmail = async (name, email, password) => {
-    return localAuth.registerWithEmail(name, email, password);
+    const response = await apiRequest('/auth/register', {
+      method: 'POST',
+      body: JSON.stringify({ name, email, password }),
+    });
+    localStorage.setItem('token', response.token);
+    setUser(response.user);
+    return response.user;
   };
 
   const logout = async () => {
-    return localAuth.logout();
+    localStorage.removeItem('token');
+    setUser(null);
   };
 
   const value = {

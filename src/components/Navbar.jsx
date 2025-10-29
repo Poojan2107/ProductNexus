@@ -74,6 +74,33 @@ export default function Navbar() {
               >
                 ADD_PRODUCT
               </NavLink>
+              <NavLink
+                to="/dashboard"
+                className={({ isActive }) =>
+                  isActive ? "nav-active" : "nav-inactive"
+                }
+                style={({ isActive }) => ({
+                  color: isActive ? "#000000" : "#ffffff",
+                  border: "2px solid #ffffff",
+                  background: isActive ? "#ffffff" : "transparent",
+                  padding: "0.75rem 1.25rem",
+                  borderRadius: "8px",
+                  textDecoration: "none",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontWeight: "700",
+                  minWidth: "120px",
+                  textAlign: "center",
+                  transition: "all 0.3s ease",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "0.9rem",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                })}
+              >
+                DASHBOARD
+              </NavLink>
             </>
           )}
         </nav>
@@ -83,6 +110,10 @@ export default function Navbar() {
               <span className="welcome">
                 USER: {user.displayName || user.email}
               </span>
+              <Link className="btn muted" to="/profile">
+                PROFILE
+              </Link>
+
               <button className="btn muted" onClick={handleLogout}>
                 LOGOUT
               </button>
