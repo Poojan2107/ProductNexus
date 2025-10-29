@@ -22,9 +22,9 @@ export default function ViewProduct() {
     load();
   }, [id]);
 
-  if (loading) return <div className="container">Loading...</div>;
-  if (error) return <div className="container">{error}</div>;
-  if (!product) return <div className="container">Not found</div>;
+  if (loading) return <div className="loading">LOADING_PRODUCT...</div>;
+  if (error) return <div className="container terminal">{error}</div>;
+  if (!product) return <div className="container terminal">PRODUCT_NOT_FOUND.exe</div>;
 
   return (
     <div className="container">
@@ -38,14 +38,14 @@ export default function ViewProduct() {
               </div>
             )}
             <p>
-              <strong>Price:</strong> ₹{Number(product.price).toFixed(2)}
+              <strong>PRICE:</strong> ₹{Number(product.price).toFixed(2)}
             </p>
             <p>
-              <strong>Category:</strong> {product.category} /{" "}
+              <strong>CATEGORY:</strong> {product.category} /{" "}
               {product.subcategory}
             </p>
             <p>
-              <strong>Description:</strong>
+              <strong>DESCRIPTION:</strong>
             </p>
             <p>{product.description}</p>
           </div>
@@ -53,11 +53,11 @@ export default function ViewProduct() {
       </div>
       <div className="spacer" />
       <div className="actions">
-        <Link className="btn" to={`/products/${product._id}/edit`}>
-          Edit
+        <Link className="btn accent" to={`/products/${product._id}/edit`}>
+          EDIT_PRODUCT
         </Link>
         <Link className="btn muted" to="/products">
-          Back
+          BACK_TO_PRODUCTS
         </Link>
       </div>
     </div>

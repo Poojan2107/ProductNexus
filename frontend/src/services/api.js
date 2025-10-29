@@ -89,7 +89,7 @@ export async function logoutUser() {
 }
 
 export async function updateUserProfile(userId, userData) {
-  return apiRequest(`/auth/profile/${userId}`, {
+  return apiRequest(`/auth/update/${userId}`, {
     method: 'PUT',
     body: JSON.stringify(userData),
   });
