@@ -16,6 +16,10 @@ app.use(express.json());
 // MongoDB connection
 const mongoUri = process.env.MONGODB_URI || 'mongodb+srv://Poojan:ProductNexus@productnexus.x2fbefr.mongodb.net/';
 
+app.get('/', (req, res) => {
+  res.send('Welcome to Product Nexus API');
+});
+
 mongoose.connect(mongoUri)
   .then(() => {
     console.log('MongoDB connected');
